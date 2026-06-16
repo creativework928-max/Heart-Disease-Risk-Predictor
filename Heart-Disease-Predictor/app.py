@@ -144,20 +144,43 @@ st.markdown("""
 # ----------------------------------------------------------------
 #  Load Model & Preprocessor
 # ----------------------------------------------------------------
+
+# -----------------------Replace_Code-----------------------------
+
+from pathlib import Path
+import joblib
+import json
+import streamlit as st
+
+BASE_DIR = Path(__file__).parent
+
 @st.cache_resource
 def load_ml_artifacts():
-    """Load trained model and preprocessor from disk."""
-    try:
-        model        = joblib.load("ml_model/heart_disease_model.joblib")
-        preprocessor = joblib.load("ml_model/preprocessor.joblib")
-        with open("ml_model/metadata.json") as f:
-            metadata = json.load(f)
-        with open("ml_model/feature_columns.json") as f:
-            feature_cols = json.load(f)
-        return model, preprocessor, metadata, feature_cols
-    except FileNotFoundError as e:
-        st.error(f"❌ Model files not found: {e}. Please run the training notebook first.")
+
+    model_path = BASE_DIR / "ml_model" / "heart_disease_model.joblib"
+    preprocessor_path = BASE_DIR / "ml_model" / "preprocessor.joblib"
+
+    if not model_path.exists():
+        st.error(f"Model not found: {model_path}")
         st.stop()
+
+    if not preprocessor_path.exists():
+        st.error(f"Preprocessor not found: {preprocessor_path}")
+        st.stop()
+
+    model = joblib.load(model_path)
+    preprocessor = joblib.load(preprocessor_path)
+
+    with open(BASE_DIR / "ml_model" / "metadata.json") as f:
+        metadata = json.load(f)
+
+    with open(BASE_DIR / "ml_model" / "feature_columns.json") as f:
+        feature_cols = json.load(f)
+
+    return model, preprocessor, metadata, feature_cols
+
+
+# -----------------------Replace_Code-End-----------------------------
 
 model, preprocessor, metadata, feature_cols = load_ml_artifacts()
 
