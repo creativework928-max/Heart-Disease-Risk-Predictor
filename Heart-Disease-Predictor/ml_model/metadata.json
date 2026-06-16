@@ -1,0 +1,38 @@
+{
+  "model_name": "Random Forest",
+  "best_params": {
+    "max_depth": null,
+    "min_samples_leaf": 1,
+    "min_samples_split": 5,
+    "n_estimators": 200
+  },
+  "cv_auc": 0.9009583009583009,
+  "test_accuracy": 0.8360655737704918,
+  "test_auc": 0.8982683982683983,
+  "test_f1": 0.8648648648648649,
+  "feature_count": 18,
+  "training_samples": 241,
+  "saved_at": "2026-06-16T05:19:30.013278",
+  "numerical_features": [
+    "age",
+    "trestbps",
+    "chol",
+    "thalach",
+    "oldpeak",
+    "heart_rate_reserve",
+    "chol_per_age"
+  ],
+  "categorical_features": [
+    "sex",
+    "cp",
+    "fbs",
+    "restecg",
+    "exang",
+    "slope",
+    "ca",
+    "thal",
+    "age_group",
+    "bp_category",
+    "risk_composite"
+  ]
+}
